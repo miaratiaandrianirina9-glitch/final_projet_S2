@@ -28,25 +28,24 @@
 
     function est_dans_la_base($numero_etu)
     {
-        $retour=1;
+        $retour=-1;
         $all_membre=get_all_member();
         foreach($all_membre as $membre){
             if($membre['numero_etu'] == $numero_etu){
-                $retour=0;
+                $retour=$membre['id_membre'];
             }
         }
         return $retour;
     }
     
-    function get_all_produit_by_member($etu){
-        $sql = "SELECT * FROM produit_membre pm JOIN membre m ON pm.id_membre=m.id_membre WHERE m.numero_etu!=$etu";
-        return get_all_lines($sql);
-        $sql = "SELECT * FROM produit_membre pm 
-        JOIN membre m ON pm.id_membre=m.id_membre 
-        JOIN produit p ON p.id_produit=pm.id_produit
-        WHERE m.numero_etu!=$etu";
+    function get_all_produit_by_member($id_membre){
+        $sql = "SELECT * FROM produit_membre pm
+        LEFT JOIN membre m ON pm.id_membre=m.id_membre 
+        LEFT JOIN produit p ON p.id_produit=pm.id_produit
+        WHERE m.id_membre!=$id_membre";
         return get_all_lines($sql);
     }
+
     function achat_produit($quantite, $id_produit){
         $sql = "SELECT * FROM produit_membre
         WHERE id_produit=$id_produit";
@@ -59,10 +58,23 @@
     }
 
     function get_montant_total_membre($id_membre){
-        $sql="SELECT sum(produit_membre.prix_vente * vente.quantite) as montant_total from vente 
+        $sql="SELECT membre.nom as nom_membre, sum(produit_membre.prix_vente * vente.quantite) as montant_total from vente 
         join produit_membre on vente.id_produit_membre=produit_membre.id_produit_membre join produit on produit_membre.id_produit=produit.id_produit
         join membre on produit_membre.id_membre=membre.id_membre where produit_membre.id_membre=$id_membre";
 
         return get_one_line($sql);
     }
+    function get_all_produit(){
+        $sql="SELECT * FROM produit";
+        return get_all_lines($sql);
+    }
+
+    function vendre_produit($id_produit, $quantite, $id_membre){
+        $sql1="SELECT * FROM produit WHERE id_produit=$id_produit";
+        $membre=get_one_line($sql1);
+        $sql2="INSERT INTO produit_membre (quantite_dispo,id_produit,id_membre,prix_vente,date_dispo)
+        VALUES ($quantite,$id_produit,$id_membre,".$membre['prix_reference'].", NOW())";
+        mysqli_query(dbconnect(),$sql2);
+    }
+
 ?>
