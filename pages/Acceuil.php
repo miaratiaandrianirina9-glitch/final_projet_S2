@@ -22,6 +22,7 @@
     </div>
     <table class="table" border=1 width=900>
         <tr>
+            <th>ID</th>
             <th>Produit</th>
             <th>Quantite disponible</th>
             <th>Achat</th>
@@ -30,8 +31,9 @@
     <? foreach($all_produit as $produit){?>
         <tr>
         <form action="achatproduit.php" method="post">
+            <td><?= $produit['id_produit']?></td>
             <td>
-                <img src="../assets/uploads/<?= $produit['imagePlat']?>" alt="image">
+                <img src="../assets/uploads/<?=$produit['imageplat']?>" alt="image">
                 <p><?= $produit['nom']?></p>
             </td>
             <td><?= $produit['quantite_dispo']?></td>

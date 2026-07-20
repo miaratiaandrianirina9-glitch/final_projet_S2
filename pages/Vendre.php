@@ -14,12 +14,10 @@
 <div class="body">
     <h1>Vendre des produits</h1>
     <div class=form>
-    <div class="form">
         <button><a class="btn" href="Acceuil.php">Tout produit vendus</a></button>
         <button><a class="btn" href="Mes_Ventes.php">Mes produit vendus</a></button>
         <button><a class="btn" href="Statistiques.php">Voir les Statistiques</a></button>
         <button><a class="btn" href="Vendre.php">Vendre des produits</a></button>
-    </div>
         <form action="traitement_produit.php" method="post" enctype="multipart/form-data">
             <label for="produit">Nom du produit</label>
             <p><select name="id_produit" id="produit">

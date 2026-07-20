@@ -187,7 +187,7 @@
     return $newName;
     }
     function ajout_img_plat($nomFichier, $id_produit){
-        $sql="UPDATE produit SET imageplat=$nomFichier WHERE id_produit=$id_produit";
+        $sql="UPDATE produit SET imageplat='$nomFichier' WHERE id_produit=$id_produit";
         mysqli_query(dbconnect(),$sql);
     }
 

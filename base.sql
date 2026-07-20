@@ -48,16 +48,16 @@ INSERT INTO categorie ( nom_categorie) VALUES
 
 -- Table membre
 INSERT INTO membre (nom , numero_etu) VALUES
-('Martin', 004029),
-('Jean', 004020),
-('Dupont', 004013),
-('Marie', 004134),
-('Durand', 003452),
-('Paul', 004665),
-('Morel', 004807),
-('Sophie', 003959),
-('Legrand', 003014),
-('Luc', 003171);
+('Martin', 4029),
+('Jean', 4020),
+('Dupont', 4013),
+('Marie', 4134),
+('Durand', 3452),
+('Paul', 4665),
+('Morel', 4807),
+('Sophie', 3959),
+('Legrand', 3014),
+('Luc', 3171);
 
 -- Table produit
 INSERT INTO produit (nom , id_categorie, prix_reference) VALUES
