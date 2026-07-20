@@ -11,7 +11,7 @@ CREATE TABLE membre(
 );
 
 CREATE TABLE categorie(
-    id_categories INT AUTO_INCREMENT PRIMARY KEY,
+    id_categorie INT AUTO_INCREMENT PRIMARY KEY,
     nom_categorie VARCHAR(100)
 );
 
@@ -122,3 +122,5 @@ INSERT INTO vente (id_vente, date , heure , id_produit_membre, quantite) VALUES
 (18, '2026-07-20', '15:45:00', 18, 2),
 (19, '2026-07-20', '16:15:00', 19, 1),
 (20, '2026-07-20', '16:40:00', 20, 5);
+
+ALTER TABLE produit ADD imagePlat VARCHAR(100);

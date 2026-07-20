@@ -50,6 +50,7 @@
         $sql = "SELECT * FROM produit_membre
         WHERE id_produit=$id_produit";
         $produit=get_one_line($sql);
+
         $quantiteRenouvel=$produit['quantite_dispo']-$quantite;
 
         $sql2="UPDATE produit_membre 
@@ -79,7 +80,9 @@
         mysqli_query(dbconnect(),$sql2);
 
         mysqli_query(dbconnect(),$sql2);
+ 
     }
+    
     function get_produit_vendu($id_membre){
         $sql = "SELECT *,p.nom as nom_produit, v.quantite as quantite_vendu, (pm.prix_vente * v.quantite) as prix_total 
         FROM produit_membre pm
@@ -131,5 +134,44 @@
         WHERE c.id_categorie=$id_categorie";
 
         return get_all_lines($sql);
+
+    function upload($file, $nomproduit){
+        $uploadDir = __DIR__ . '/../assets/uploads/';
+        $maxSize = 2 * 1024 * 1024; // 2 Mo
+        $allowedMimeTypes = ['image/jpeg', 'image/png', 'application/pdf'];
+    
+        if ($file['error'] !== UPLOAD_ERR_OK) {
+            die('Erreur lors de l’upload : ' . $file['error']);
+        }
+        // Vérifie la taille
+        if ($file['size'] > $maxSize) {
+            die('Le fichier est trop volumineux.');
+        }
+        // Vérifie le type MIME avec `finfo`
+        $finfo = finfo_open(FILEINFO_MIME_TYPE);
+        $mime = finfo_file($finfo, $file['tmp_name']);
+        finfo_close($finfo);
+        if (!in_array($mime, $allowedMimeTypes)) {
+            die('Type de fichier non autorisé : ' . $mime);
+        }
+        // renommer le fichier
+        $originalName = pathinfo($file['name'], PATHINFO_FILENAME);
+        $extension = pathinfo($file['name'], PATHINFO_EXTENSION);
+        $newName = $nomproduit. '.' . $extension;
+        // Déplace le fichier
+        if (move_uploaded_file($file['tmp_name'], $uploadDir . $newName)) {
+            echo "Fichier uploadé avec succès : ". $newName;
+        } else {
+            echo "Échec du déplacement du fichier.";
+        }
+    return $newName;
+    }
+    function ajout_img_plat($nomFichier, $id_produit){
+        $sql="UPDATE produit SET imageplat=$nomFichier WHERE id_produit=$id_produit";
+        mysqli_query(dbconnect(),$sql);
+    }
+    function get_nom_produit($id_produit){
+        $sql="SELECT * FROM produit WHERE id_produit=$id_produit";
+        return get_one_line($sql);
     }
 ?>

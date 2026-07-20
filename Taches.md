@@ -21,3 +21,6 @@
   - [x] formulaire de vente de produit
 - [x] Mes ventes : miaratia
   - [x] montant total de vente
+
+## Version 2
+- [x] upload image plat : vahina
