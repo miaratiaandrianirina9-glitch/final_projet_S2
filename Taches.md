@@ -24,3 +24,16 @@
 
 ## Version 2
 - [x] upload image plat : vahina
+
+- [x] Page Statistique : miaratia
+  - [x] Afficher les ventes par catégorie. 
+    - [x] lien sur chaque catégorie pour afficher les ventes par produits > vente_par_produit.php
+    - [x] lien sur chaque produit pour afficher les ventes par membre > vente_par_membre.php
+
+- [x] Sous page stat
+  - [x] vente_par_produit.php : miaratia
+  - [x] vente_par_membre.php : miaratia
+
+- [ ] Page pour ajouter et modifier un produit , rajouter un champ case à cocher “périmé” : miaratia
+- [ ] Accueil : Filtre par catégorie et par produit : vahina
+ 

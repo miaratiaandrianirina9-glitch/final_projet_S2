@@ -10,5 +10,5 @@
     else{
         echo "Aucun fichier recu";
     }
-    header('location: Vendre.php);
+    header('location: Vendre.php');
 ?>

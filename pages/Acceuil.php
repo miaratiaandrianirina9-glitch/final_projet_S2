@@ -31,7 +31,7 @@
         <tr>
         <form action="achatproduit.php" method="post">
             <td>
-                <img src="../assets/uploads/<?= $produit['imagePlat']?>" alt="image">
+                <img src="../assets/uploads/<?=$produit['imageplat']?>" alt="image">
                 <p><?= $produit['nom']?></p>
             </td>
             <td><?= $produit['quantite_dispo']?></td>
