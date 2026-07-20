@@ -1,4 +1,5 @@
 <?php 
+    include("connexion.php");
     $numero_etu=$_GET['numero_etu'];
     if(isset($_GET['nom_membre'])){
         $nom_membre=$_GET['nom_membre'];
@@ -19,9 +20,10 @@
 </head>
 <body>
     <h1>Le numero <? echo $numero_etu;?>, inscrivez vous!</h1>
-    <form action="" method="get">
+    <form action="traitement_etu.php" method="post">
         <p> Entrer votre nom: 
             <input type="text" name="nom_membre"> 
+            <input type="hidden" name="numero_etu" value="<?=$numero_etu?>">
             <input type="submit" value="Inscrire">
         </p>
     </form>

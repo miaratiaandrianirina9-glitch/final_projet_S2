@@ -11,7 +11,8 @@
 - [x] insertion donnees : vahina
 ### Page
 - [x] Login : miaratia
-- [x] Accueil : miaratia
+- [x] Inscription : miaratia
+- [x] Accueil : vahina
 - [x] Vendre : miaratia
 - [x] Mes ventes : miaratia
 - [x] connexion a la base : vahina
