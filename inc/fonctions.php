@@ -69,7 +69,7 @@
         VALUES ($quantite,$id_produit,$id_membre,".$produit['prix_reference'].", NOW())";
         mysqli_query(dbconnect(),$sql2);
 
-        $sql4 = "SELECT MAX(id_produit_membre) FROM produit_membre";
+        $sql4 = "SELECT MAX(id_produit_membre)as id_produit_membre FROM produit_membre";
         $proMembre=get_one_line($sql4);
 
         $sql3="INSERT INTO vente (date , heure , id_produit_membre, quantite)
