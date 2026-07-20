@@ -41,6 +41,21 @@
     function get_all_produit_by_member($etu){
         $sql = "SELECT * FROM produit_membre pm JOIN membre m ON pm.id_membre=m.id_membre WHERE m.numero_etu!=$etu";
         return get_all_lines($sql);
+        $sql = "SELECT * FROM produit_membre pm 
+        JOIN membre m ON pm.id_membre=m.id_membre 
+        JOIN produit p ON p.id_produit=pm.id_produit
+        WHERE m.numero_etu!=$etu";
+        return get_all_lines($sql);
+    }
+    function achat_produit($quantite, $id_produit){
+        $sql = "SELECT * FROM produit_membre
+        WHERE id_produit=$id_produit";
+        $produit=get_one_line($sql);
+        $quantiteRenouvel=$produit['quantite_dispo']-$quantite;
+        $sql2="UPDATE produit_membre 
+        SET quantite_dispo=$quantiteRenouvel 
+        WHERE id_produit=$id_produit";
+        mysqli_query(dbconnect(),$sql2);
     }
    
 ?>

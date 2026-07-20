@@ -4,7 +4,7 @@
         $nom_membre=$_GET['nom_membre'];
 
         $sql_insert_member = "INSERT INTO membre (nom, numero_etu) VALUES ('$nom_membre', '$numero_etu')";
-        // mysqli_query($dbconnect, $sql_insert_member);
+        mysqli_query($dbconnect, $sql_insert_member);
 
         header("Location: Acceuil.php?numero_etu=" . $numero_etu);
     }
