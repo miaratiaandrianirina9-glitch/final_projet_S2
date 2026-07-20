@@ -5,6 +5,6 @@
         header('location: Acceuil.php?numero_etu='.$_POST['numero_etu']);
     }
     else{
-        header('location: Inscription.php?numero_etu='.$_POST['numero_etu']');
+        header('location: Inscription.php?numero_etu='.$_POST['numero_etu']);
     }
 ?>
