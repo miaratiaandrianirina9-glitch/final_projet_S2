@@ -9,7 +9,7 @@
             $result[] = $line;
         }
         mysqli_free_result($req);
-        echo $sql;
+        // echo $sql;
         return $result;
     }
 
@@ -51,10 +51,19 @@
         WHERE id_produit=$id_produit";
         $produit=get_one_line($sql);
         $quantiteRenouvel=$produit['quantite_dispo']-$quantite;
+
         $sql2="UPDATE produit_membre 
         SET quantite_dispo=$quantiteRenouvel 
         WHERE id_produit=$id_produit";
+
+        $sql3 = "SELECT MAX(id_produit_membre) FROM produit_membre";
+        $proMembre=get_one_line($sql3);
+
+        $sql4="INSERT INTO vente (date , heure , id_produit_membre, quantite)
+        VALUES (NOW(),CURTIME(),$id_membre,". $proMembre['id_produit_membre'].", $quantite)";
+
         mysqli_query(dbconnect(),$sql2);
+        mysqli_query(dbconnect(),$sql4);
     }
     function get_all_produit(){
         $sql="SELECT * FROM produit";
@@ -69,17 +78,14 @@
         VALUES ($quantite,$id_produit,$id_membre,".$produit['prix_reference'].", NOW())";
         mysqli_query(dbconnect(),$sql2);
 
-        $sql4 = "SELECT MAX(id_produit_membre) FROM produit_membre";
-        $proMembre=get_one_line($sql4);
-
-        $sql3="INSERT INTO vente (date , heure , id_produit_membre, quantite)
-        VALUES (NOW(),CURTIME(),$id_membre,". $proMembre['id_produit_membre'].", $quantite)";
-        mysqli_query(dbconnect(),$sql3);
+        mysqli_query(dbconnect(),$sql2);
     }
     function get_produit_vendu($id_membre){
-        $sql = "SELECT * FROM produit_membre pm
-        LEFT JOIN membre m ON pm.id_membre=m.id_membre 
-        LEFT JOIN produit p ON p.id_produit=pm.id_produit
+        $sql = "SELECT *,p.nom as nom_produit, v.quantite as quantite_vendu, (pm.prix_vente * v.quantite) as prix_total 
+        FROM produit_membre pm
+        JOIN membre m ON pm.id_membre=m.id_membre 
+        JOIN produit p ON p.id_produit=pm.id_produit
+        JOIN vente v ON pm.id_produit_membre=v.id_produit_membre
         WHERE m.id_membre=$id_membre";
 
         return get_all_lines($sql);
@@ -91,5 +97,39 @@
         join membre on produit_membre.id_membre=membre.id_membre where produit_membre.id_membre=$id_membre";
 
         return get_one_line($sql);
+    }
+
+    function get_vente_par_categorie(){
+        $sql="SELECT *, 
+        c.nom_categorie as nom_categorie ,
+        c.id_categorie as id_categorie, 
+        p.nom as nom_produit, 
+        pm.prix_vente as prix_vente,
+        v.quantite as quantite_vendu,
+        (pm.prix_vente * v.quantite) as prix_total
+        from vente v 
+        join produit_membre pm on v.id_produit_membre=pm.id_produit_membre 
+        join produit p on pm.id_produit=p.id_produit 
+        join categorie c on p.id_categorie=c.id_categorie
+        group by c.id_categorie";
+
+        return get_all_lines($sql);
+    }
+    function get_vente_par_produit($id_categorie){
+        $sql="SELECT
+        c.nom_categorie as nom_categorie ,
+        c.id_categorie as id_categorie, 
+        p.nom as nom_produit, 
+        p.id_produit as id_produit, 
+        pm.prix_vente as prix_vente,
+        v.quantite as quantite_vendu,
+        (pm.prix_vente * v.quantite) as prix_total
+        from vente v 
+        join produit_membre pm on v.id_produit_membre=pm.id_produit_membre 
+        join produit p on pm.id_produit=p.id_produit 
+        join categorie c on p.id_categorie=c.id_categorie
+        WHERE c.id_categorie=$id_categorie";
+
+        return get_all_lines($sql);
     }
 ?>
