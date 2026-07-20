@@ -47,3 +47,6 @@ button{
     background-color: aliceblue;
     border-radius: 1px solid;
 }
+label{
+    font-size: 12px;
+}
