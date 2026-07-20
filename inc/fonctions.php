@@ -134,7 +134,7 @@
         WHERE c.id_categorie=$id_categorie";
 
         return get_all_lines($sql);
-
+    }
     function upload($file, $nomproduit){
         $uploadDir = __DIR__ . '/../assets/uploads/';
         $maxSize = 2 * 1024 * 1024; // 2 Mo

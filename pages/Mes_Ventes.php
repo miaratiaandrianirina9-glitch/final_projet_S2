@@ -1,10 +1,11 @@
 <?php 
     include_once("../inc/fonctions.php");
-    if(!isset($_GET['id_membre'])){
+    session_start();
+    if(!isset($_SESSION['id_membre'])){
         header("Location: index.php");
     }
-    $montant=get_montant_total_vente($_GET['id_membre']);
-    $produit_vendu=get_produit_vendu($_GET['id_membre']);
+    $montant=get_montant_total_vente($_SESSION['id_membre']);
+    $produit_vendu=get_produit_vendu($_SESSION['id_membre']);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -15,7 +16,13 @@
     <link rel="stylesheet" href="../assets/style.css">
 </head>
 <body>
-    <p>Membre: <? echo $montant['nom_membre'];?></p>
+    <h1>Membre: <? echo $montant['nom_membre'];?></h1>
+    <div class="form">
+        <button><a class="btn" href="Acceuil.php">Tout produit vendus</a></button>
+        <button><a class="btn" href="Mes_Ventes.php">Mes produit vendus</a></button>
+        <button><a class="btn" href="Statistiques.php">Voir les Statistiques</a></button>
+        <button><a class="btn" href="Vendre.php">Vendre des produits</a></button>
+    </div>
     <table border="1" class="table">
         <tr>
             <td>Produit</td>
@@ -32,6 +39,6 @@
             </tr>
         <? }?>
     </table>
-    <p>Montant total des ventes: <?= $montant['montant_total']?></p>
+    <h2>Montant total des ventes: <?= $montant['montant_total']?></h2>
 </body>
 </html>

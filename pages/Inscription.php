@@ -6,8 +6,7 @@
 
         $sql_insert_member = "INSERT INTO membre (nom, numero_etu) VALUES ('$nom_membre', '$numero_etu')";
         mysqli_query($dbconnect, $sql_insert_member);
-
-        header("Location: Acceuil.php?numero_etu=" . $numero_etu);
+        header("Location: traitement_etu.php?numero_etu=" . $numero_etu);
     }
 
 ?>
