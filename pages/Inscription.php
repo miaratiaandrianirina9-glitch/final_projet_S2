@@ -17,10 +17,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <h1>Le numero <? echo $numero_etu;?>, inscrivez vous!</h1>
-    <form action="traitement_etu.php" method="post">
+    <form action="#" method="get">
         <p> Entrer votre nom: 
             <input type="text" name="nom_membre"> 
             <input type="hidden" name="numero_etu" value="<?=$numero_etu?>">

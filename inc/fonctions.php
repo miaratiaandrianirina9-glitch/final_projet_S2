@@ -28,23 +28,28 @@
 
     function est_dans_la_base($numero_etu)
     {
-        $retour=1;
+        $retour=-1;
         $all_membre=get_all_member();
         foreach($all_membre as $membre){
             if($membre['numero_etu'] == $numero_etu){
-                $retour=0;
+                $retour=$membre['id_membre'];
             }
         }
         return $retour;
     }
     
-    function get_all_produit_by_member($etu){
-        $sql = "SELECT * FROM produit_membre pm JOIN membre m ON pm.id_membre=m.id_membre WHERE m.numero_etu!=$etu";
-        return get_all_lines($sql);
-        $sql = "SELECT * FROM produit_membre pm 
+    function get_all_produit_by_member($id_membre){
+        $sql = "SELECT * FROM produit_membre pm
         JOIN membre m ON pm.id_membre=m.id_membre 
         JOIN produit p ON p.id_produit=pm.id_produit
-        WHERE m.numero_etu!=$etu";
+        WHERE m.id_membre!=$id_membre";
+        return get_all_lines($sql);
+    }
+    function produit_vendu_by_member($id_membre){
+        $sql = "SELECT * FROM produit_membre pm
+        JOIN membre m ON pm.id_membre=m.id_membre 
+        JOIN produit p ON p.id_produit=pm.id_produit
+        WHERE m.id_membre=$id_membre";
         return get_all_lines($sql);
     }
     function achat_produit($quantite, $id_produit){
@@ -55,6 +60,22 @@
         $sql2="UPDATE produit_membre 
         SET quantite_dispo=$quantiteRenouvel 
         WHERE id_produit=$id_produit";
+        mysqli_query(dbconnect(),$sql2);
+    }
+    function get_all_produit(){
+        $sql="SELECT * FROM produit";
+        return get_all_lines($sql);
+    }
+
+    function vendre_produit($id_produit, $quantite, $id_membre){
+        $sql1="SELECT * FROM produit WHERE id_produit=$id_produit";
+        $membre=get_one_line($sql1);
+        $sql2="UPDATE produit_membre 
+        SET quantite_dispo=$quantite,
+        id_produit=$id_produit,
+        id_membre=$id_membre,
+        prix_vente=".$membre['prix_reference'].",
+        date_dispo=NOW()";
         mysqli_query(dbconnect(),$sql2);
     }
    
