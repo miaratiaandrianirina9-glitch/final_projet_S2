@@ -1,6 +1,6 @@
 <?php 
     include_once("../inc/fonctions.php");
-    $all_produit=get_all_produit_by_member($id_membre);
+    $all_produit=get_all_produit_by_member($GET['numero_etu']);
 ?>
 <!DOCTYPE html>
 <html lang="en">

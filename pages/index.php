@@ -6,10 +6,11 @@
     <title>Document</title>
 </head>
 <body>
+    <h1>Login page</h1>
     <form action="../inc/traitement_" method="post">
+        <label for="">Votre ETU</label>
         <p>ETU <input type="text" name="numero_etu" placeholder="Ex: 2249"> 
     </p>
     </form>
 </body>
 </html>
-qSMNkJasJYF7MN8
