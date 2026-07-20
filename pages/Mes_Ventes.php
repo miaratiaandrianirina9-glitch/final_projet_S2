@@ -3,8 +3,8 @@
     if(!isset($_GET['id_membre'])){
         header("Location: index.php");
     }
-    $montant=get_montant_total_membre($_GET['id_membre']);
-    // $montant=montant_vente_by_member($_GET['id_membre']);
+    $montant=get_montant_total_vente($_GET['id_membre']);
+    $produit_vendu=get_produit_vendu($_GET['id_membre']);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -16,6 +16,22 @@
 </head>
 <body>
     <p>Membre: <? echo $montant['nom_membre'];?></p>
+    <table border="1">
+        <tr>
+            <td>Produit</td>
+            <td>Quantite vendu</td>
+            <td>Prix de vente</td>
+            <td>Prix total</td>
+        </tr>
+        <? foreach($produit_vendu as $produit){?>
+            <tr>
+                <td><? echo $produit['nom_produit']; ?></td>
+                <td><? echo $produit['quantite_vendu']; ?></td>
+                <td><? echo $produit['prix_vente']; ?></td>
+                <td><? echo $produit['prix_total']; ?></td>
+            </tr>
+        <? }?>
+    </table>
     <p>Montant total des ventes: <?= $montant['montant_total']?></p>
 </body>
 </html>

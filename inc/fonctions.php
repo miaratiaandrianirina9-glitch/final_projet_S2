@@ -9,7 +9,7 @@
             $result[] = $line;
         }
         mysqli_free_result($req);
-        echo $sql;
+        // echo $sql;
         return $result;
     }
 
@@ -57,7 +57,15 @@
         mysqli_query(dbconnect(),$sql2);
     }
 
-    function get_montant_total_membre($id_membre){
+    function get_produit_vendu($id_membre){
+        $sql="SELECT produit.nom as nom_produit, vente.quantite as quantite_vendu, produit_membre.prix_vente as prix_vente ,(produit_membre.prix_vente * vente.quantite) as prix_total from vente 
+        join produit_membre on vente.id_produit_membre=produit_membre.id_produit_membre join produit on produit_membre.id_produit=produit.id_produit
+        join membre on produit_membre.id_membre=membre.id_membre where produit_membre.id_membre=$id_membre";
+
+        return get_all_lines($sql);
+    }
+
+    function get_montant_total_vente($id_membre){
         $sql="SELECT membre.nom as nom_membre, sum(produit_membre.prix_vente * vente.quantite) as montant_total from vente 
         join produit_membre on vente.id_produit_membre=produit_membre.id_produit_membre join produit on produit_membre.id_produit=produit.id_produit
         join membre on produit_membre.id_membre=membre.id_membre where produit_membre.id_membre=$id_membre";
