@@ -14,7 +14,8 @@
     <? foreach($all_produit as $produit){?>
         <form action="achatproduit.php" method="get">
             <p><b><?= $produit['nom']?></b></p>
-            <p> Quantite: <input type="text" name="quantite_produit" value="1">
+            <label for="quantite">Quantite dispo : <?= $produit['quantite_dispo']?></label>
+            <p> Quantite: <input id="quantite" type="text" name="quantite_produit" value="1">
             <input type="submit" value="Acheter"></p>
             <input type="hidden" name="id_produit" value="<?=$produit['id_produit']?>">
             <input type="hidden" name="numero_etu" value="<?=$_GET['numero_etu']?>">

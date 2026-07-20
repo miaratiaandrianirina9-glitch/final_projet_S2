@@ -46,6 +46,13 @@
         return get_all_lines($sql);
     }
     function achat_produit($quantite, $id_produit){
-        
+        $sql = "SELECT * FROM produit_membre
+        WHERE id_produit=$id_produit";
+        $produit=get_one_line($sql);
+        $quantiteRenouvel=$produit['quantite_dispo']-$quantite;
+        $sql2="UPDATE produit_membre 
+        SET quantite_dispo=$quantiteRenouvel 
+        WHERE id_produit=$id_produit";
+        mysqli_query(dbconnect(),$sql2);
     }
 ?>
