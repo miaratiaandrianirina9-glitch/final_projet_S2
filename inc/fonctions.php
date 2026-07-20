@@ -50,7 +50,9 @@
         $sql = "SELECT * FROM produit_membre
         WHERE id_produit=$id_produit";
         $produit=get_one_line($sql);
+
         $quantiteRenouvel=$produit['quantite_dispo']-$quantite;
+
         $sql2="UPDATE produit_membre 
         SET quantite_dispo=$quantiteRenouvel 
         WHERE id_produit=$id_produit";
@@ -68,13 +70,6 @@
         $sql2="INSERT INTO produit_membre (quantite_dispo,id_produit,id_membre,prix_vente,date_dispo)
         VALUES ($quantite,$id_produit,$id_membre,".$produit['prix_reference'].", NOW())";
         mysqli_query(dbconnect(),$sql2);
-
-        $sql4 = "SELECT MAX(id_produit_membre)as id_produit_membre FROM produit_membre";
-        $proMembre=get_one_line($sql4);
-
-        $sql3="INSERT INTO vente (date , heure , id_produit_membre, quantite)
-        VALUES (NOW(),CURTIME(),$id_membre,". $proMembre['id_produit_membre'].", $quantite)";
-        mysqli_query(dbconnect(),$sql3);
     }
     function get_produit_vendu($id_membre){
         $sql = "SELECT * FROM produit_membre pm
@@ -91,5 +86,54 @@
         join membre on produit_membre.id_membre=membre.id_membre where produit_membre.id_membre=$id_membre";
 
         return get_one_line($sql);
+    }
+    function upload($fichier){
+        
+    $nomFichier = $fichier['name'];
+    $tmpNom = $fichier['tmp_name'];
+    $tailleFichier = $fichier['size'];
+    $erreur = $fichier['error'];
+
+    // 1si erreur lors du transfert
+    if ($erreur !== 0) {
+        echo "Une erreur est survenue lors de l'envoi du fichier.";
+        exit();
+    }
+
+    // extension du fichier
+    $extension = strtolower(pathinfo($nomFichier, PATHINFO_EXTENSION));
+
+    // 3. Extensions et types MIME autorisés (sécurité)
+    $extensionsAutorisees = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
+
+    if (!in_array($extension, $extensionsAutorisees)) {
+        echo "Erreur : Seuls les fichiers JPG, JPEG, PNG, GIF et WEBP sont autorisés.";
+        exit();
+    }
+
+    // 4. Limiter la taille du fichier (ex: maximum 2 Mo = 2 * 1024 * 1024 octets)
+    $tailleMax = 2 * 1024 * 1024;
+    if ($tailleFichier > $tailleMax) {
+        echo "Erreur : Le fichier est trop lourd (maximum 2 Mo).";
+        exit();
+    }
+
+    // 5. Créer le dossier "uploads" s'il n'existe pas encore
+    $dossierDestination = 'uploads/';
+    if (!is_dir($dossierDestination)) {
+        mkdir($dossierDestination, 0755, true);
+    }
+
+    // 6. Générer un nom unique pour éviter les doublons
+    $nouveauNom = uniqid('img_', true) . '.' . $extension;
+    $cheminFinal = $dossierDestination . $nouveauNom;
+
+    // 7. Déplacer le fichier du dossier temporaire vers le dossier destination
+    if (move_uploaded_file($tmpNom, $cheminFinal)) {
+        echo "L'image a été téléversée avec succès !<br>";
+        echo "<img src='" . htmlspecialchars($cheminFinal) . "' alt='Image envoyée' width='300'>";
+    } else {
+        echo "Erreur lors de l'enregistrement du fichier sur le serveur.";
+    }
     }
 ?>

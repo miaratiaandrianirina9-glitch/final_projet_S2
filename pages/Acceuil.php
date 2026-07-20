@@ -13,11 +13,12 @@
 <body>
     <div class="body">
     <h1>Les produits vendus</h1>
-    <table class="table" border=1 width=700>
+    <table class="table" border=1 width=900>
         <tr>
             <th>Produit</th>
             <th>Quantite disponible</th>
             <th>Achat</th>
+            <th>id_membre</th>
         </tr>
     <? foreach($all_produit as $produit){?>
         <tr>
@@ -26,6 +27,7 @@
             <td><?= $produit['quantite_dispo']?></td>
             <td> Quantite: <input id="quantite" type="text" name="quantite_produit" value="1">
             <input type="submit" value="Acheter"></td>
+            <td><?= $produit['id_membre']?></td>
             <input type="hidden" name="id_produit" value="<?=$produit['id_produit']?>">
             <input type="hidden" name="id_membre" value="<?=$_GET['id_membre']?>">
         </form>
