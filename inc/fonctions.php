@@ -57,5 +57,12 @@
         WHERE id_produit=$id_produit";
         mysqli_query(dbconnect(),$sql2);
     }
-   
+
+    function get_montant_total_membre($id_membre){
+        $sql="SELECT sum(produit_membre.prix_vente * vente.quantite) as montant_total from vente 
+        join produit_membre on vente.id_produit_membre=produit_membre.id_produit_membre join produit on produit_membre.id_produit=produit.id_produit
+        join membre on produit_membre.id_membre=membre.id_membre where produit_membre.id_membre=$id_membre";
+
+        return get_one_line($sql);
+    }
 ?>

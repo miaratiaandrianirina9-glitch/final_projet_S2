@@ -1,6 +1,6 @@
 <?php 
     include_once("../inc/fonctions.php");
-    $montant=get_montant_by_member($id_membre);
+    $montant=get_montant_total_membre(1);
 ?>
 <!DOCTYPE html>
 <html lang="en">
