@@ -10,9 +10,14 @@
   - [x]  vente
 - [x] insertion donnees : vahina
 ### Page
-- [x] Login : miaratia
-- [x] Inscription : miaratia
-- [x] Accueil : vahina
-- [x] Vendre : miaratia
-- [x] Mes ventes : miaratia
 - [x] connexion a la base : vahina
+- [x] Login : miaratia
+  - [x] formulaire d'isertion  etu Login
+- [x] Inscription : miaratia
+  - [x] formulaie d'inscription nom
+- [x] Accueil : vahina
+  - [x] Tout les produits vendues
+- [x] Vendre : vahina
+  - [x] formulaire de vente de produit
+- [x] Mes ventes : miaratia
+  - [x] montant total de vente

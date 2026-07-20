@@ -40,18 +40,12 @@
     
     function get_all_produit_by_member($id_membre){
         $sql = "SELECT * FROM produit_membre pm
-        JOIN membre m ON pm.id_membre=m.id_membre 
-        JOIN produit p ON p.id_produit=pm.id_produit
+        LEFT JOIN membre m ON pm.id_membre=m.id_membre 
+        LEFT JOIN produit p ON p.id_produit=pm.id_produit
         WHERE m.id_membre!=$id_membre";
         return get_all_lines($sql);
     }
-    function produit_vendu_by_member($id_membre){
-        $sql = "SELECT * FROM produit_membre pm
-        JOIN membre m ON pm.id_membre=m.id_membre 
-        JOIN produit p ON p.id_produit=pm.id_produit
-        WHERE m.id_membre=$id_membre";
-        return get_all_lines($sql);
-    }
+
     function achat_produit($quantite, $id_produit){
         $sql = "SELECT * FROM produit_membre
         WHERE id_produit=$id_produit";
@@ -70,12 +64,8 @@
     function vendre_produit($id_produit, $quantite, $id_membre){
         $sql1="SELECT * FROM produit WHERE id_produit=$id_produit";
         $membre=get_one_line($sql1);
-        $sql2="UPDATE produit_membre 
-        SET quantite_dispo=$quantite,
-        id_produit=$id_produit,
-        id_membre=$id_membre,
-        prix_vente=".$membre['prix_reference'].",
-        date_dispo=NOW()";
+        $sql2="INSERT INTO produit_membre (quantite_dispo,id_produit,id_membre,prix_vente,date_dispo)
+        VALUES ($quantite,$id_produit,$id_membre,".$membre['prix_reference'].", NOW())";
         mysqli_query(dbconnect(),$sql2);
     }
    
