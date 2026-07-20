@@ -12,7 +12,7 @@
 <body>
     <h1>Les produits vendus</h1>
     <? foreach($all_produit as $produit){?>
-        <form action="achatproduit.php" method="get">
+        <form action="achatproduit.php" method="post">
             <p><b><?= $produit['nom']?></b></p>
             <label for="quantite">Quantite dispo : <?= $produit['quantite_dispo']?></label>
             <p> Quantite: <input id="quantite" type="text" name="quantite_produit" value="1">
