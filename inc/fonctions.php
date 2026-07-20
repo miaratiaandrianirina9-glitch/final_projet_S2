@@ -39,11 +39,13 @@
     }
     
     function get_all_produit_by_member($etu){
-        $sql = "SELECT * FROM produit_membre pm JOIN membre m ON pm.id_membre=m.id_membre WHERE m.numero_etu=$etu";
+        $sql = "SELECT * FROM produit_membre pm 
+        JOIN membre m ON pm.id_membre=m.id_membre 
+        JOIN produit p ON p.id_produit=pm.id_produit
+        WHERE m.numero_etu!=$etu";
         return get_all_lines($sql);
     }
-    function get_all_produit_by_member2($etu){
-        $sql = "SELECT * FROM produit_membre pm JOIN membre m ON pm.id_membre=m.id_membre WHERE m.numero_etu=$etu";
-        return get_all_lines($sql);
+    function achat_produit($quantite, $id_produit){
+        
     }
 ?>

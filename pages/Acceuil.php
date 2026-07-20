@@ -10,12 +10,14 @@
     <title>Document</title>
 </head>
 <body>
-    <p>Les produits vendus</p>
+    <h1>Les produits vendus</h1>
     <? foreach($all_produit as $produit){?>
-        <form action="traitement_produit" method="get">
-            <p><?= $produit['nom']?></p>
-            <p>Quantite: <input type="text" name="quantite_produit"></p>
-            <p><input type="submit" value="Acheter"></p>
+        <form action="achatproduit.php" method="get">
+            <p><b><?= $produit['nom']?></b></p>
+            <p> Quantite: <input type="text" name="quantite_produit" value="1">
+            <input type="submit" value="Acheter"></p>
+            <input type="hidden" name="id_produit" value="<?=$produit['id_produit']?>">
+            <input type="hidden" name="numero_etu" value="<?=$_GET['numero_etu']?>">
         </form>
     <?}?>
 </body>
