@@ -23,10 +23,11 @@
                     <option value="<?= $produit['id_produit']?>"><?= $produit['nom']?></option>
                     <?}?>
                 </select></p>
+
                 <label for="quantite">Quantite du produit a vendre</label>
                 <p><input type="text" name="quantite" id="quantite"></p>
-                <label for="fichier">Ajouter une image</label>
-                <input type="file" name="imgplat" id="fichier">
+                    <label for="fichier">Ajouter une image</label>
+                    <input type="file" name="imgplat" id="fichier">
                 <p><input type="submit" value="Vendre"></p>
                 <input type="hidden" name="id_membre" value="<?=$_GET['id_membre']?>">
             </form>

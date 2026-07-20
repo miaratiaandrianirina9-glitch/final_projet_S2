@@ -87,7 +87,7 @@
 
         return get_one_line($sql);
     }
-    function upload($fichier){
+    function upload($fichier, $nomproduit){
         
     $nomFichier = $fichier['name'];
     $tmpNom = $fichier['tmp_name'];
@@ -102,38 +102,40 @@
 
     // extension du fichier
     $extension = strtolower(pathinfo($nomFichier, PATHINFO_EXTENSION));
-
-    // 3. Extensions et types MIME autorisés (sécurité)
     $extensionsAutorisees = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
 
     if (!in_array($extension, $extensionsAutorisees)) {
         echo "Erreur : Seuls les fichiers JPG, JPEG, PNG, GIF et WEBP sont autorisés.";
         exit();
     }
-
-    // 4. Limiter la taille du fichier (ex: maximum 2 Mo = 2 * 1024 * 1024 octets)
+    // taille max
     $tailleMax = 2 * 1024 * 1024;
     if ($tailleFichier > $tailleMax) {
         echo "Erreur : Le fichier est trop lourd (maximum 2 Mo).";
         exit();
     }
 
-    // 5. Créer le dossier "uploads" s'il n'existe pas encore
+    // creer le dossier "uploads" s'il n'existe pas encore
     $dossierDestination = 'uploads/';
     if (!is_dir($dossierDestination)) {
         mkdir($dossierDestination, 0755, true);
     }
 
-    // 6. Générer un nom unique pour éviter les doublons
-    $nouveauNom = uniqid('img_', true) . '.' . $extension;
+    // nom unique
+    $nouveauNom = $nomproduit . '.' . $extension;
     $cheminFinal = $dossierDestination . $nouveauNom;
 
-    // 7. Déplacer le fichier du dossier temporaire vers le dossier destination
+    // deplacer le fichier du dossier temporaire vers le dossier destination
     if (move_uploaded_file($tmpNom, $cheminFinal)) {
         echo "L'image a été téléversée avec succès !<br>";
         echo "<img src='" . htmlspecialchars($cheminFinal) . "' alt='Image envoyée' width='300'>";
     } else {
         echo "Erreur lors de l'enregistrement du fichier sur le serveur.";
     }
+    return $nouveauNom;
+    }
+    function ajout_img_plat($nomFichier, $id_produit){
+        $sql="UPDATE produit SET imageplat=$nomFichier WHERE id_produit=$id_produit";
+        mysqli_query(dbconnect(),$sql);
     }
 ?>
