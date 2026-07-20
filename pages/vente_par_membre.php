@@ -1,6 +1,7 @@
 <?php 
+    session_start();
     include_once("../inc/fonctions.php");
-    $all_stat=get_vente_par_membre();
+    $all_stat=get_vente_par_membre($_SESSION['id_membre']);
     
 ?>
 <!DOCTYPE html>
@@ -12,7 +13,7 @@
     <link rel="stylesheet" href="../assets/style.css">
 </head>
 <body>
-    <h1>Ventes pour la membre <?= $all_stat[0]['nom_categorie'];?></h1>
+    <h1>Ventes pour la membre <?= $all_stat[0]['nom_membre'];?></h1>
     <table class="table" border=1 width=700>
         <tr>
             <td>Produit</td>
@@ -22,7 +23,7 @@
         </tr>
         <? foreach($all_stat as $stat){?>
             <tr>
-                <td><a href="vente_par_membre.php?id_produit=<?= $stat['id_produit'];?>"><?= $stat['nom_produit']?></td>
+                <td><?= $stat['nom_produit']?></td>
                 <td><?= $stat['prix_vente']?></td>
                 <td><?= $stat['quantite_vendu']?></td>
                 <td><?= $stat['prix_total']?></td>

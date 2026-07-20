@@ -1,6 +1,6 @@
 <?php
     include("../inc/fonctions.php");
-    vendre_produit($_POST['id_produit'], $_POST['quantite'], $_POST['id_membre']);
+    vendre_produit($_POST['id_produit'], $_POST['quantite'], $_SESSION['id_membre']);
     $nom_produit=get_nom_produit($_POST['id_produit']);
     if(isset($_FILES['imgplat']) && $_FILES['imgplat']['error'] === UPLOAD_ERR_OK){
         echo "Fichier recu";
@@ -10,5 +10,5 @@
     else{
         echo "Aucun fichier recu";
     }
-    header('location: Vendre.php?id_membre='.$_POST['id_membre']);
+    header('location: Vendre.php);
 ?>

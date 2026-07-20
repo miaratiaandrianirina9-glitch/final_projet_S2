@@ -143,15 +143,18 @@
         p.id_produit as id_produit, 
         pm.prix_vente as prix_vente,
         v.quantite as quantite_vendu,
-        (pm.prix_vente * v.quantite) as prix_total
+        (pm.prix_vente * v.quantite) as prix_total,
+        m.nom as nom_membre
         from vente v 
         join produit_membre pm on v.id_produit_membre=pm.id_produit_membre 
         join produit p on pm.id_produit=p.id_produit 
         join categorie c on p.id_categorie=c.id_categorie
-        WHERE c.id_categorie=$id_membre";
+        join membre m on pm.id_membre=m.id_membre
+        WHERE m.id_membre=$id_membre";
 
         return get_all_lines($sql);
     }
+
     function upload($file, $nomproduit){
         $uploadDir = __DIR__ . '/../assets/uploads/';
         $maxSize = 2 * 1024 * 1024; // 2 Mo

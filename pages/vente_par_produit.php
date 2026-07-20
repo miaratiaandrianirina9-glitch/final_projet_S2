@@ -12,6 +12,12 @@
 </head>
 <body>
     <h1>Ventes pour la categorie <?= $all_stat[0]['nom_categorie'];?></h1>
+    <div class="form">
+        <button><a class="btn" href="Acceuil.php">Tout produit vendus</a></button>
+        <button><a class="btn" href="Mes_Ventes.php">Mes produit vendus</a></button>
+        <button><a class="btn" href="Statistiques.php">Voir les Statistiques</a></button>
+        <button><a class="btn" href="Vendre.php">Vendre des produits</a></button>
+    </div>
     <table class="table" border=1 width=700>
         <tr>
             <td>Produit</td>
