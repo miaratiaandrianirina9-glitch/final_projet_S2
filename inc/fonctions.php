@@ -63,15 +63,24 @@
 
     function vendre_produit($id_produit, $quantite, $id_membre){
         $sql1="SELECT * FROM produit WHERE id_produit=$id_produit";
-        $membre=get_one_line($sql1);
+        $produit=get_one_line($sql1);
+
         $sql2="INSERT INTO produit_membre (quantite_dispo,id_produit,id_membre,prix_vente,date_dispo)
-        VALUES ($quantite,$id_produit,$id_membre,".$membre['prix_reference'].", NOW())";
+        VALUES ($quantite,$id_produit,$id_membre,".$produit['prix_reference'].", NOW())";
         mysqli_query(dbconnect(),$sql2);
+
+        $sql4 = "SELECT MAX(id_produit_membre) FROM produit_membre";
+        $proMembre=get_one_line($sql4);
+
+        $sql3="INSERT INTO vente (date , heure , id_produit_membre, quantite)
+        VALUES (NOW(),CURTIME(),$id_membre,". $proMembre['id_produit_membre'].", $quantite)";
+        mysqli_query(dbconnect(),$sql3);
     }
     function get_produit_vendu($id_membre){
-        $sql="SELECT produit.nom as nom_produit, vente.quantite as quantite_vendu, produit_membre.prix_vente as prix_vente ,(produit_membre.prix_vente * vente.quantite) as prix_total from vente 
-        join produit_membre on vente.id_produit_membre=produit_membre.id_produit_membre join produit on produit_membre.id_produit=produit.id_produit
-        join membre on produit_membre.id_membre=membre.id_membre where produit_membre.id_membre=$id_membre";
+        $sql = "SELECT * FROM produit_membre pm
+        LEFT JOIN membre m ON pm.id_membre=m.id_membre 
+        LEFT JOIN produit p ON p.id_produit=pm.id_produit
+        WHERE m.id_membre=$id_membre";
 
         return get_all_lines($sql);
     }
