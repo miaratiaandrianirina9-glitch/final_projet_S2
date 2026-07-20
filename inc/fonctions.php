@@ -82,7 +82,7 @@
         mysqli_query(dbconnect(),$sql2);
  
     }
-    
+
     function get_produit_vendu($id_membre){
         $sql = "SELECT *,p.nom as nom_produit, v.quantite as quantite_vendu, (pm.prix_vente * v.quantite) as prix_total 
         FROM produit_membre pm
@@ -134,7 +134,24 @@
         WHERE c.id_categorie=$id_categorie";
 
         return get_all_lines($sql);
+    }
+    function get_vente_par_membre($id_membre){
+        $sql="SELECT
+        c.nom_categorie as nom_categorie ,
+        c.id_categorie as id_categorie, 
+        p.nom as nom_produit, 
+        p.id_produit as id_produit, 
+        pm.prix_vente as prix_vente,
+        v.quantite as quantite_vendu,
+        (pm.prix_vente * v.quantite) as prix_total
+        from vente v 
+        join produit_membre pm on v.id_produit_membre=pm.id_produit_membre 
+        join produit p on pm.id_produit=p.id_produit 
+        join categorie c on p.id_categorie=c.id_categorie
+        WHERE c.id_categorie=$id_membre";
 
+        return get_all_lines($sql);
+    }
     function upload($file, $nomproduit){
         $uploadDir = __DIR__ . '/../assets/uploads/';
         $maxSize = 2 * 1024 * 1024; // 2 Mo
@@ -170,6 +187,7 @@
         $sql="UPDATE produit SET imageplat=$nomFichier WHERE id_produit=$id_produit";
         mysqli_query(dbconnect(),$sql);
     }
+
     function get_nom_produit($id_produit){
         $sql="SELECT * FROM produit WHERE id_produit=$id_produit";
         return get_one_line($sql);

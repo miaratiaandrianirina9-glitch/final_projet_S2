@@ -22,7 +22,7 @@
 <body>
 <div class="body">
     <h1>Le numero <? echo $numero_etu;?>, inscrivez vous!</h1>
-    <form action="#" method="get">
+    <form action="Insciption.php" method="get">
         <p> Entrer votre nom: 
             <input type="text" name="nom_membre"> 
             <input type="hidden" name="numero_etu" value="<?=$numero_etu?>">

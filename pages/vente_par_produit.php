@@ -21,7 +21,7 @@
         </tr>
         <? foreach($all_stat as $stat){?>
             <tr>
-                <td><a href="vente_par_membre.php?id_produit=<?= $stat['id_produit'];?>"><?= $stat['nom_produit']?></td>
+                <td><a href="vente_par_membre.php"><?= $stat['nom_produit']?></td>
                 <td><?= $stat['prix_vente']?></td>
                 <td><?= $stat['quantite_vendu']?></td>
                 <td><?= $stat['prix_total']?></td>
