@@ -90,7 +90,7 @@ INSERT INTO produit_membre (id_produit_membre, id_produit, id_membre, prix_vente
 (9, 9, 4, 2000, 12, '2026-07-20'),
 (10, 10, 4, 1000, 25, '2026-07-20'),
 (11, 11, 4, 2000, 10, '2026-07-20'),
-(12, 12, 4, 1000, 15, '2026-07-20'),
+(12, 12, 4, 3000, 15, '2026-07-20'),
 (13, 13, 6, 3500, 8, '2026-07-20'),
 (14, 14, 6, 2500, 10, '2026-07-20'),
 (15, 15, 6, 2000, 14, '2026-07-20'),
@@ -123,4 +123,4 @@ INSERT INTO vente (id_vente, date , heure , id_produit_membre, quantite) VALUES
 (19, '2026-07-20', '16:15:00', 19, 1),
 (20, '2026-07-20', '16:40:00', 20, 5);
 
-ALTER TABLE produit ADD imageplat VARCHAR(100);
+ALTER TABLE produit ADD imagePlat VARCHAR(100);

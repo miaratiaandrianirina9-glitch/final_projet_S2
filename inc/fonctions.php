@@ -87,55 +87,43 @@
 
         return get_one_line($sql);
     }
-    function upload($fichier, $nomproduit){
-        
-    $nomFichier = $fichier['name'];
-    $tmpNom = $fichier['tmp_name'];
-    $tailleFichier = $fichier['size'];
-    $erreur = $fichier['error'];
-
-    // 1si erreur lors du transfert
-    if ($erreur !== 0) {
-        echo "Une erreur est survenue lors de l'envoi du fichier.";
-        exit();
-    }
-
-    // extension du fichier
-    $extension = strtolower(pathinfo($nomFichier, PATHINFO_EXTENSION));
-    $extensionsAutorisees = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
-
-    if (!in_array($extension, $extensionsAutorisees)) {
-        echo "Erreur : Seuls les fichiers JPG, JPEG, PNG, GIF et WEBP sont autorisés.";
-        exit();
-    }
-    // taille max
-    $tailleMax = 2 * 1024 * 1024;
-    if ($tailleFichier > $tailleMax) {
-        echo "Erreur : Le fichier est trop lourd (maximum 2 Mo).";
-        exit();
-    }
-
-    // creer le dossier "uploads" s'il n'existe pas encore
-    $dossierDestination = 'uploads/';
-    if (!is_dir($dossierDestination)) {
-        mkdir($dossierDestination, 0755, true);
-    }
-
-    // nom unique
-    $nouveauNom = $nomproduit . '.' . $extension;
-    $cheminFinal = $dossierDestination . $nouveauNom;
-
-    // deplacer le fichier du dossier temporaire vers le dossier destination
-    if (move_uploaded_file($tmpNom, $cheminFinal)) {
-        echo "L'image a été téléversée avec succès !<br>";
-        echo "<img src='" . htmlspecialchars($cheminFinal) . "' alt='Image envoyée' width='300'>";
-    } else {
-        echo "Erreur lors de l'enregistrement du fichier sur le serveur.";
-    }
-    return $nouveauNom;
+    function upload($file, $nomproduit){
+        $uploadDir = __DIR__ . '/../assets/uploads/';
+        $maxSize = 2 * 1024 * 1024; // 2 Mo
+        $allowedMimeTypes = ['image/jpeg', 'image/png', 'application/pdf'];
+    
+        if ($file['error'] !== UPLOAD_ERR_OK) {
+            die('Erreur lors de l’upload : ' . $file['error']);
+        }
+        // Vérifie la taille
+        if ($file['size'] > $maxSize) {
+            die('Le fichier est trop volumineux.');
+        }
+        // Vérifie le type MIME avec `finfo`
+        $finfo = finfo_open(FILEINFO_MIME_TYPE);
+        $mime = finfo_file($finfo, $file['tmp_name']);
+        finfo_close($finfo);
+        if (!in_array($mime, $allowedMimeTypes)) {
+            die('Type de fichier non autorisé : ' . $mime);
+        }
+        // renommer le fichier
+        $originalName = pathinfo($file['name'], PATHINFO_FILENAME);
+        $extension = pathinfo($file['name'], PATHINFO_EXTENSION);
+        $newName = $nomproduit. '.' . $extension;
+        // Déplace le fichier
+        if (move_uploaded_file($file['tmp_name'], $uploadDir . $newName)) {
+            echo "Fichier uploadé avec succès : ". $newName;
+        } else {
+            echo "Échec du déplacement du fichier.";
+        }
+    return $newName;
     }
     function ajout_img_plat($nomFichier, $id_produit){
         $sql="UPDATE produit SET imageplat=$nomFichier WHERE id_produit=$id_produit";
         mysqli_query(dbconnect(),$sql);
+    }
+    function get_nom_produit($id_produit){
+        $sql="SELECT * FROM produit WHERE id_produit=$id_produit";
+        return get_one_line($sql);
     }
 ?>

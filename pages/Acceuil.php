@@ -23,7 +23,10 @@
     <? foreach($all_produit as $produit){?>
         <tr>
         <form action="achatproduit.php" method="post">
-            <td><?= $produit['nom']?></td>
+            <td>
+                <img src="../assets/uploads/<?= $produit['imagePlat']?>" alt="image">
+                <p><?= $produit['nom']?></p>
+            </td>
             <td><?= $produit['quantite_dispo']?></td>
             <td> Quantite: <input id="quantite" type="text" name="quantite_produit" value="1">
             <input type="submit" value="Acheter"></td>
