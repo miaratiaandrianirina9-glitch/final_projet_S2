@@ -10,5 +10,6 @@
     else{
         echo "Aucun fichier recu";
     }
-    header('location: Vendre.php');
+    $succes="Donnees enregistre ✓";
+    header('location: Vendre.php?succes='.$succes);
 ?>

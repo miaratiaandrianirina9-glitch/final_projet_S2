@@ -18,6 +18,7 @@
         <button><a class="btn" href="Mes_Ventes.php">Mes produit vendus</a></button>
         <button><a class="btn" href="Statistiques.php">Voir les Statistiques</a></button>
         <button><a class="btn" href="Vendre.php">Vendre des produits</a></button>
+        <p class="succes"> <?php if(isset($_GET['succes'])){echo $_GET['succes'];}?></p>
         <form action="traitement_produit.php" method="post" enctype="multipart/form-data">
             <label for="produit">Nom du produit</label>
             <p><select name="id_produit" id="produit">
@@ -27,7 +28,7 @@
                 </select></p>
 
                 <label for="quantite">Quantite du produit a vendre</label>
-                <p><input type="text" name="quantite" id="quantite"></p>
+                <p><input type="number" name="quantite" id="quantite"></p>
                     <label for="fichier">Ajouter une image</label>
                     <input type="file" name="imgplat" id="fichier" accept="image/*">
                 <p><input type="submit" value="Vendre"></p>
