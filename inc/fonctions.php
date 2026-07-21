@@ -71,6 +71,15 @@
         return get_all_lines($sql);
     }
 
+    function get_all_categorie($id_categorie){
+        $sql="SELECT * FROM categorie c where c.id_categorie!=$id_categorie";
+        return get_all_lines($sql);
+    }
+
+    function get_tout_categorie(){
+        $sql="SELECT * FROM categorie";
+        return get_all_lines($sql);
+    }
     function vendre_produit($id_produit, $quantite, $id_membre){
         $sql1="SELECT * FROM produit WHERE id_produit=$id_produit";
         $produit=get_one_line($sql1);
@@ -155,6 +164,29 @@
         return get_all_lines($sql);
     }
 
+    function get_all_product($id_membre){
+        $sql="SELECT * ,p.nom as nom, 
+            c.nom_categorie as categorie, 
+            c.id_categorie as id_categorie, 
+            p.prix_reference as prix
+            from produit p 
+            join categorie c on p.id_categorie=c.id_categorie
+            join produit_membre pm on p.id_produit=pm.id_produit
+            where pm.id_membre=$id_membre";
+
+            return get_all_lines($sql);
+    }
+
+    function get_info_produit($id_produit){
+        $sql="SELECT *, p.nom as nom, 
+            c.nom_categorie as categorie, 
+            p.prix_reference as prix 
+            from produit p 
+            join categorie c on p.id_categorie=c.id_categorie
+            where p.id_produit=$id_produit";
+
+            return get_one_line($sql);
+    }
     function upload($file, $nomproduit){
         $uploadDir = __DIR__ . '/../assets/uploads/';
         $maxSize = 2 * 1024 * 1024; // 2 Mo
