@@ -12,7 +12,7 @@
     <div class="form">
     <form action="traitement_etu.php" method="get">
         <label for="">Votre ETU</label>
-        <p>ETU <input type="text" name="numero_etu" placeholder="Ex:4029"> 
+        <p>ETU <input type="text" name="numero_etu" placeholder="Ex:4029" value="4029"> 
         <input type="submit" value="Log in">
     </p>
     </form>
