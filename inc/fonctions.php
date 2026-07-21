@@ -154,12 +154,12 @@
         v.quantite as quantite_vendu,
         (pm.prix_vente * v.quantite) as prix_total,
         m.nom as nom_membre
-        from vente v 
-        join produit_membre pm on v.id_produit_membre=pm.id_produit_membre 
-        join produit p on pm.id_produit=p.id_produit 
-        join categorie c on p.id_categorie=c.id_categorie
-        join membre m on pm.id_membre=m.id_membre
-        WHERE m.id_membre=$id_membre";
+        FROM produit_membre pm
+        JOIN membre m ON pm.id_membre = m.id_membre
+        JOIN produit p ON pm.id_produit = p.id_produit
+        JOIN categorie c ON p.id_categorie = c.id_categorie
+        LEFT JOIN vente v ON v.id_produit_membre = pm.id_produit_membre
+        WHERE pm.id_membre=$id_membre";
 
         return get_all_lines($sql);
     }
@@ -226,5 +226,21 @@
     function get_nom_produit($id_produit){
         $sql="SELECT * FROM produit WHERE id_produit=$id_produit";
         return get_one_line($sql);
+    }
+    function get_produit_of($id_categorie){
+        $sql="SELECT * FROM produit_membre pm
+        JOIN membre m ON pm.id_membre=m.id_membre 
+        JOIN produit p ON p.id_produit=pm.id_produit
+        WHERE p.id_categorie=$id_categorie";
+        return get_all_lines($sql);
+    }
+    function get_all_categorie(){
+        $sql="SELECT * FROM categorie";
+        return get_all_lines($sql);
+    }
+    function get_categorie_name($id_categorie){
+        $sql="SELECT * FROM categorie WHERE id_categorie=$id_categorie";
+        $categorie=get_one_line($sql);
+        return $categorie['nom_categorie'];
     }
 ?>

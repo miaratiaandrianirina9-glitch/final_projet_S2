@@ -18,17 +18,17 @@ h1{
     text-align: center;
 }
 .table{
-
     margin-left: auto;
     margin-right: auto;
+    border-collapse: collapse;
 }
 .table th, .table td { 
     text-align: left; 
-    padding: 6px 3px; 
+    padding: 12px 10px; 
     border-bottom: 1px solid var(--color-border);
 }
 .table th{
-    background-color: rgb(55, 55, 151);
+    background-color: rgb(19, 67, 107);
     color: #fff;
 }
 .table td{
@@ -52,4 +52,22 @@ label{
 }
 h2{
     text-align: center;
+}
+.left-bar{
+    margin-left: auto;
+    margin-right: auto;
+    width: 400px;
+}
+.btn-cat{
+    color: #063f81;
+    padding: 9px 10px; 
+    font-family: system-ui, sans-serif; 
+    cursor: pointer; 
+    text-decoration: none;
+    font-size: 15px;
+    text-align: center;
+}
+.img-plat{
+    margin-left: auto;
+    margin-right: auto;
 }
