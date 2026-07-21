@@ -145,12 +145,12 @@
         v.quantite as quantite_vendu,
         (pm.prix_vente * v.quantite) as prix_total,
         m.nom as nom_membre
-        from vente v 
-        join produit_membre pm on v.id_produit_membre=pm.id_produit_membre 
-        join produit p on pm.id_produit=p.id_produit 
-        join categorie c on p.id_categorie=c.id_categorie
-        join membre m on pm.id_membre=m.id_membre
-        WHERE m.id_membre=$id_membre";
+        FROM produit_membre pm
+        JOIN membre m ON pm.id_membre = m.id_membre
+        JOIN produit p ON pm.id_produit = p.id_produit
+        JOIN categorie c ON p.id_categorie = c.id_categorie
+        LEFT JOIN vente v ON v.id_produit_membre = pm.id_produit_membre
+        WHERE pm.id_membre=$id_membre";
 
         return get_all_lines($sql);
     }

@@ -47,7 +47,7 @@
         <form action="achatproduit.php" method="post">
             <td><?= $produit['id_produit']?></td>
             <td>
-                <img src="../assets/uploads/<?=$produit['imageplat']?>" alt="image">
+                <img class="img-plat" src="../assets/uploads/<?=$produit['imageplat']?>" alt="image" width="100">
                 <p><?= $produit['nom']?></p>
             </td>
             <td><?= $produit['quantite_dispo']?></td>

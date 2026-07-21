@@ -36,4 +36,7 @@
 
 - [ ] Page pour ajouter et modifier un produit , rajouter un champ case à cocher “périmé” : miaratia
 - [x] Accueil : Filtre par catégorie et par produit : vahina
+  - [x] function :
+    - [x] $categorie=get_all_categorie();
+    - [x] $all_produit=get_produit_of($_GET['categorie']);
  
