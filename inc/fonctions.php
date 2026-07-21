@@ -71,7 +71,7 @@
         return get_all_lines($sql);
     }
 
-    function get_all_categorie($id_categorie){
+    function get_categorie($id_categorie){
         $sql="SELECT * FROM categorie c where c.id_categorie!=$id_categorie";
         return get_all_lines($sql);
     }

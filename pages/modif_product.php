@@ -7,7 +7,7 @@
 
     // Récupération des infos actuelles du produit
     $information = get_info_produit($id_produit);
-    $all_categorie = get_all_categorie($id_categorie);
+    $all_categorie = get_categorie($id_categorie);
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -18,6 +18,13 @@
 </head>
 <body>
     <h1>Modifier le produit</h1>
+    <div class="form">
+        <button><a class="btn" href="Acceuil.php">Tout produit vendus</a></button>
+        <button><a class="btn" href="Mes_Ventes.php">Mes produit vendus</a></button>
+        <button><a class="btn" href="Statistiques.php">Voir les Statistiques</a></button>
+        <button><a class="btn" href="Vendre.php">Vendre des produits</a></button>
+        <button><a class="btn" href="add_modif_produit.php">Ajouter ou modifier des produits</a></button>
+    </div>
 
     <form action="../inc/traite_modif_product.php" method="get">
         <p>Nom du produit : 
