@@ -53,3 +53,17 @@ label{
 h2{
     text-align: center;
 }
+.left-bar{
+    margin-left: auto;
+    margin-right: auto;
+    width: 400px;
+}
+.btn-cat{
+    color: #063f81;
+    padding: 9px 10px; 
+    font-family: system-ui, sans-serif; 
+    cursor: pointer; 
+    text-decoration: none;
+    font-size: 15px;
+    text-align: center;
+}

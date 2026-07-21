@@ -195,4 +195,20 @@
         $sql="SELECT * FROM produit WHERE id_produit=$id_produit";
         return get_one_line($sql);
     }
+    function get_produit_of($id_categorie){
+        $sql="SELECT * FROM produit_membre pm
+        JOIN membre m ON pm.id_membre=m.id_membre 
+        JOIN produit p ON p.id_produit=pm.id_produit
+        WHERE p.id_categorie=$id_categorie";
+        return get_all_lines($sql);
+    }
+    function get_all_categorie(){
+        $sql="SELECT * FROM categorie";
+        return get_all_lines($sql);
+    }
+    function get_categorie_name($id_categorie){
+        $sql="SELECT * FROM categorie WHERE id_categorie=$id_categorie";
+        $categorie=get_one_line($sql);
+        return $categorie['nom_categorie'];
+    }
 ?>

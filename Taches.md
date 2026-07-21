@@ -35,5 +35,5 @@
   - [x] vente_par_membre.php : miaratia
 
 - [ ] Page pour ajouter et modifier un produit , rajouter un champ case à cocher “périmé” : miaratia
-- [ ] Accueil : Filtre par catégorie et par produit : vahina
+- [x] Accueil : Filtre par catégorie et par produit : vahina
  

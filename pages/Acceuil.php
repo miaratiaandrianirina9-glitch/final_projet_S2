@@ -2,6 +2,10 @@
     include_once("../inc/fonctions.php");
     session_start();
     $all_produit=get_all_produit_by_member($_SESSION['id_membre']);
+    $categorie=get_all_categorie();
+    if(isset($_GET['categorie'])){
+        $all_produit=get_produit_of($_GET['categorie']);
+    }
     ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -13,12 +17,22 @@
     </head>
     <body>
         <div class="body">
-    <h1>Les produits vendus</h1>
+    <h1>
+        Les produits vendus
+        <?php if(isset($_GET['categorie'])){ ?>
+        categorie : <?=get_categorie_name($_GET['categorie']);?>
+        <?php } ?>
+    </h1>
     <div class="form">
         <button><a class="btn" href="Acceuil.php">Tout produit vendus</a></button>
         <button><a class="btn" href="Mes_Ventes.php">Mes produit vendus</a></button>
         <button><a class="btn" href="Statistiques.php">Voir les Statistiques</a></button>
         <button><a class="btn" href="Vendre.php">Vendre des produits</a></button>
+    </div>
+    <div class="left-bar">
+        <?php foreach($categorie as $categorie){?>
+        <button><a class="btn-cat" href="Acceuil.php?categorie=<?=$categorie['id_categorie']?>"><?=$categorie['nom_categorie']?></a></button>
+        <?php } ?>
     </div>
     <table class="table" border=1 width=900>
         <tr>
